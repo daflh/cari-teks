@@ -38,16 +38,14 @@
             <input class="keyword" type="text" id="keyword" v-model="keyword" placeholder="Coba &quot;vue js&quot;"/>
             <span class="clean" @click="keyword = ''">&#x2715;</span>
         </div>
-        <div class="info">{{ info }}</div>
+        <div class="info" v-text="info"></div>
         <ul class="daftar">
             <li v-for="result in results">
                 <span v-html="result.text"></span>
                 <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${result.start}s`" target="_blank" v-text="secondsToHMS(result.start)"></a>
             </li>
         </ul>
-        <button class="loadMore" type="button" v-show="more" @click="loadMore()">
-            Muat Lainnya<span v-show="info === '...'"> ...</span>
-        </button>
+        <button class="loadMore" type="button" v-show="more" @click="loadMore()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
     </main>
     <script src="./js/vue.min.js"></script>
     <script src="./js/main.js"></script>
