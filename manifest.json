@@ -1,0 +1,21 @@
+{
+    "name": "Cari Teks",
+    "short_name": "CariTeks",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f4f4f4",
+    "theme_color": "#d90000",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/img/logo-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/img/logo-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

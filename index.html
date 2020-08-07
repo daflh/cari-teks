@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cari Teks - Proyek Webinar Vue.js HIMIT PENS</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80">
+            <linearGradient y2="32.18" x2="10.905" y1="147.24" x1="-87.531" id="A" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#d90000"/>
+                <stop offset="1" stop-color="#d95700"/>
+            </linearGradient>
+            <path transform="matrix(.166667 0 0 .166667 15.864135 -2.243234)" d="M-44.186 13.46c-28.164 0-51 22.836-51 51s22.836 51 51 51c11.626 0 22.338-3.9 30.916-10.45l12.53 12.525c-2.256 4.35-2.5 8.67-.102 11.06L26.31 155.75c3.426 3.426 10.873 1.54 16.61-4.2 5.736-5.73 7.614-13.17 4.182-16.596l-27.145-27.156c-2.394-2.388-6.715-2.16-11.053.096L-3.63 95.37c6.548-8.578 10.445-19.287 10.445-30.9 0-28.164-22.836-51-51-51z" fill="url(#A)"/>
+            <path d="M6.092 4.614v7.716l6.687-3.858z" fill="#fff"/>
+        </svg>
+        <h1>
+            <span>Cari</span> <span>Teks</span>
+            <span class="madeby">dibuat oleh <a href="https://github.com/dafiulh" target="_blank">Dafiul Haq</a></span>
+        </h1>
+    </header>
+    <main id="app">
+        <div class="urlInput">
+            <label for="url">URL Video</label>
+            <input class="url" type="text" id="url" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
+            <span class="clean" @click="url = ''">&#x2715;</span>
+        </div>
+        <div class="keywordInput">
+            <label for="keyword">Kata Kunci</label>
+            <input class="keyword" type="text" id="keyword" v-model="keyword" placeholder="Coba &quot;vue js&quot;"/>
+            <span class="clean" @click="keyword = ''">&#x2715;</span>
+        </div>
+        <div class="info">{{ info }}</div>
+        <ul class="daftar">
+            <li v-for="result in results">
+                <span v-html="result.text"></span>
+                <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${result.start}s`" target="_blank" v-text="secondsToHMS(result.start)"></a>
+            </li>
+        </ul>
+        <button class="loadMore" type="button" v-show="more" @click="loadMore()">
+            Muat Lainnya<span v-show="info === '...'"> ...</span>
+        </button>
+    </main>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
