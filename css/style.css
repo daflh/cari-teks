@@ -65,15 +65,16 @@ button.loadMore:hover {background: #d95700;}
 
 @media only screen and (max-width: 768px) {
     input {width: 75%;}
-    label {display: block; margin-bottom: .9rem;}
-    header svg {width: 3.5rem; height: 3.5rem; margin-right: 1.25rem;}
-    header h1 {font-size: 2.5rem;}
+    label {display: block; margin-bottom: 1rem; margin-right: 0;}
+    header svg {width: 4rem; height: 4rem; margin-right: 1.25rem;}
     header h1 span.madeby {display: none;}
+    .clean {display: none;}
     ul.daftar li {flex-direction: column;}
     ul.daftar li a {margin-left: 0; margin-top: .5rem; text-align: left;}
 }
 
 @media only screen and (max-width: 450px) {
-    body {margin: 0px 1.5rem;}
+    body {margin-right: 1.5rem; margin-left: 1.5rem;}
     header svg {display: none;}
+    header h1 {font-size: 3rem;}
 }
