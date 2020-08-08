@@ -59,9 +59,13 @@ new Vue({
         async loadMore() {
             await this.searchShow(this.videoId, this.keyword, this.page);
         },
-        secondsToHMS(seconds) {
+        formatTime(seconds) {
             const milliseconds = seconds * 1000;
-            return new Date(milliseconds).toISOString().substr(11, 8);
+            let result = new Date(milliseconds).toISOString().substr(11, 8);
+            if (result.startsWith("00")) {
+                result = result.substr(3);
+            }
+            return result.startsWith("0") ? result.substr(1) : result;
         }
     }
 })
