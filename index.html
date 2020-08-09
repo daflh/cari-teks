@@ -45,7 +45,7 @@
                 <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${result.start}s`" target="_blank" v-text="formatTime(result.start)"></a>
             </li>
         </ul>
-        <button class="loadMore" type="button" v-show="more" @click="loadMore()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
+        <button class="loadMore" type="button" v-show="more" @click="load()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
     </main>
     <script src="./js/vue.min.js"></script>
     <script src="./js/main.js"></script>

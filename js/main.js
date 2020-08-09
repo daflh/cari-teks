@@ -21,7 +21,7 @@ new Vue({
             if (!this.videoId) return this.info = "Format URL salah";
             if (keyword) {
                 if (keyword.length >= 3) {
-                    await this.searchShow(this.videoId, keyword);
+                    await this.load();
                 } else {
                     this.info = "Kata kunci minimal 3 karakter"
                 }
@@ -39,25 +39,22 @@ new Vue({
         }
     },
     methods: {
-        async searchShow(videoId, keyword, page = 1) {
+        async load() {
             this.info = "...";
-            const videoUrl = encodeURIComponent("https://www.youtube.com/watch?v=" + videoId);
+            const videoUrl = encodeURIComponent("https://www.youtube.com/watch?v=" + this.videoId);
             const respond = await fetch(
-                `https://cari-teks-video-api.vercel.app/api/search?q=${keyword}&url=${videoUrl}&page=${page}&size=${this.size}`
+                `https://cari-teks-video-api.vercel.app/api/search?q=${this.keyword}&url=${videoUrl}&page=${this.page}&size=${this.size}`
             ).then((res) => (res.ok ? res.json() : []));
 
             const total = respond.total;
             if (total > 0) {
                 this.info = `Menampilkan ${Math.min(this.page * this.size, total)} dari ${total} hasil ditemukan`;
-                this.results = [...this.results, ...respond.data];
+                this.results = this.results.concat(respond.data);
                 this.page++;
                 this.more = !!respond.next;
             } else {
                 this.info = `Tidak menemukan hasil dengan kata kunci "${this.keyword}"`;
             }
-        },
-        async loadMore() {
-            await this.searchShow(this.videoId, this.keyword, this.page);
         },
         formatTime(seconds) {
             const milliseconds = seconds * 1000;
