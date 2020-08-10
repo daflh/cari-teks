@@ -10,17 +10,13 @@ new Vue({
         more: false
     },
     watch: {
-        url: function() {
-            this.keyword = "";
-        },
-        keyword: debounce(async function (keyword) {
+        inputChange: debounce(async function() {
             this.results = [];
             this.page = 1;
             this.more = false;
-            if (this.url === "") return this.info = "Masukkan URL video";
             if (!this.videoId) return this.info = "Format URL salah";
-            if (keyword) {
-                if (keyword.length >= 3) {
+            if (this.keyword) {
+                if (this.keyword.length >= 3) {
                     await this.load();
                 } else {
                     this.info = "Kata kunci minimal 3 karakter"
@@ -31,7 +27,11 @@ new Vue({
         }, 400)
     },
     computed: {
+        inputChange: function() {
+            return [this.url, this.keyword];
+        },
         videoId: function() {
+            if (this.url === "") return false;
             let url = this.url.search(/^https?:\/\//) !== -1 ? this.url : `http://${this.url}`;
             let params = new URL(url).searchParams;
             if (!params.has("v")) return false;
