@@ -47,6 +47,7 @@ header h1 span.madeby {position: absolute; font-size: 1rem; font-weight: 500; co
 header h1 span.madeby a {color: inherit; font-weight: 600;}
 main {text-align: center;}
 .input-group > * {margin-bottom: 1.25rem;}
+.input-group .size label {cursor: help;}
 .input-group .size input {width: auto;}
 .input-group .expand {display: inline-block; margin-bottom: 1.75rem!important; cursor: pointer; padding: .3rem; color: #4a5568;}
 .input-group .clean {margin-left: .75rem; font-weight: 600; color: #4a5568; cursor: pointer;}

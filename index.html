@@ -39,8 +39,8 @@
                 <input type="text" id="keyword" v-model="keyword" placeholder="Coba &quot;vue js&quot;"/>
                 <span class="clean" @click="keyword = ''">&#x2715;</span>
             </div>
-            <div class="size" v-if="expand">
-                <label for="size">Ukuran</label>
+            <div class="size" v-show="expand">
+                <label for="size" title="Berapa banyak hasil yang harus ditampilkan untuk setiap pencarian">Ukuran</label>
                 <input type="number" id="size" min="5" max="500" v-model.number="size"/>
             </div>
             <div class="expand" @click="expand = !expand">
