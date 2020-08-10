@@ -40,7 +40,7 @@
                 <span class="clean" @click="keyword = ''">&#x2715;</span>
             </div>
             <div class="size" v-show="expand">
-                <label for="size" title="Berapa banyak hasil yang harus ditampilkan untuk setiap pencarian">Ukuran</label>
+                <label for="size" title="Berapa banyak item yang harus ditampilkan untuk setiap pencarian">Ukuran</label>
                 <input type="number" id="size" min="5" max="500" v-model.number="size"/>
             </div>
             <div class="expand" @click="expand = !expand">
@@ -51,12 +51,12 @@
         </div>
         <div class="info" v-text="info"></div>
         <ul class="daftar">
-            <li v-for="result in results">
-                <span v-html="result.text"></span>
-                <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${result.start}s`" target="_blank" v-text="formatTime(result.start)"></a>
+            <li v-for="item in result.data">
+                <span v-html="item.text"></span>
+                <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${item.start}s`" target="_blank" v-text="formatTime(item.start)"></a>
             </li>
         </ul>
-        <button class="load-more" type="button" v-show="more" @click="load()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
+        <button class="load-more" type="button" v-show="result.isLast === false" @click="load()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="./js/main.js"></script>

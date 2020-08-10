@@ -4,17 +4,21 @@ new Vue({
         url: "youtube.com/watch?v=OrxmtDw4pVI",
         keyword: "",
         size: 10,
+        expand: false,
         info: "Masukkan kata kunci yang ingin dicari",
-        results: [],
-        loadPage: 1,
-        more: false,
-        expand: false
+        result: {
+            data: [],
+            page: null,
+            isLast: null
+        }
     },
     watch: {
         inputChange: debounce(async function() {
-            this.results = [];
-            this.loadPage = 1;
-            this.more = false;
+            this.result = {
+                data: [],
+                page: null,
+                isLast: null
+            };
             if (!this.videoId) {
                 this.info = "Format URL salah";
             } else if (typeof this.size !== "number" || this.size < 5 || this.size > 500) {
@@ -45,17 +49,18 @@ new Vue({
     methods: {
         async load() {
             this.info = "...";
+            const pageToLoad = this.result.page + 1;
             const videoUrl = encodeURIComponent("https://www.youtube.com/watch?v=" + this.videoId);
             const respond = await fetch(
-                `https://cari-teks-video-api.vercel.app/api/search?q=${this.keyword}&url=${videoUrl}&page=${this.loadPage}&size=${this.size}`
+                `https://cari-teks-video-api.vercel.app/api/search?q=${this.keyword}&url=${videoUrl}&page=${pageToLoad}&size=${this.size}`
             ).then((res) => (res.ok ? res.json() : []));
 
             const total = respond.total;
             if (total > 0) {
-                this.info = `Menampilkan ${Math.min(this.loadPage * this.size, total)} dari ${total} hasil ditemukan`;
-                this.results = this.results.concat(respond.data);
-                this.loadPage++;
-                this.more = !!respond.next;
+                this.info = `Menampilkan ${Math.min(pageToLoad * this.size, total)} dari ${total} hasil ditemukan`;
+                this.result.data = this.result.data.concat(respond.data);
+                this.result.page = respond.page;
+                this.result.isLast = !respond.next;
             } else {
                 this.info = `Tidak menemukan hasil dengan kata kunci "${this.keyword}"`;
             }
