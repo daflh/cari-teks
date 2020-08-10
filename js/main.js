@@ -7,15 +7,19 @@ new Vue({
         info: "Masukkan kata kunci yang ingin dicari",
         results: [],
         loadPage: 1,
-        more: false
+        more: false,
+        expand: false
     },
     watch: {
         inputChange: debounce(async function() {
             this.results = [];
             this.loadPage = 1;
             this.more = false;
-            if (!this.videoId) return this.info = "Format URL salah";
-            if (this.keyword) {
+            if (!this.videoId) {
+                this.info = "Format URL salah";
+            } else if (typeof this.size !== "number" || this.size < 5 || this.size > 500) {
+                this.info = "Masukkan angka dengan range 5 - 500"
+            } else if (this.keyword) {
                 if (this.keyword.length >= 3) {
                     await this.load();
                 } else {
@@ -28,7 +32,7 @@ new Vue({
     },
     computed: {
         inputChange: function() {
-            return [this.url, this.keyword];
+            return [this.url, this.keyword, this.size];
         },
         videoId: function() {
             if (this.url === "") return false;

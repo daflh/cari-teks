@@ -28,15 +28,26 @@
         </h1>
     </header>
     <main id="app">
-        <div class="urlInput">
-            <label for="url">URL Video</label>
-            <input class="url" type="text" id="url" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
-            <span class="clean" @click="url = ''">&#x2715;</span>
-        </div>
-        <div class="keywordInput">
-            <label for="keyword">Kata Kunci</label>
-            <input class="keyword" type="text" id="keyword" v-model="keyword" placeholder="Coba &quot;vue js&quot;"/>
-            <span class="clean" @click="keyword = ''">&#x2715;</span>
+        <div class="input-group">
+            <div class="url">
+                <label for="url">URL Video</label>
+                <input type="text" id="url" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
+                <span class="clean" @click="url = ''">&#x2715;</span>
+            </div>
+            <div class="keyword">
+                <label for="keyword">Kata Kunci</label>
+                <input type="text" id="keyword" v-model="keyword" placeholder="Coba &quot;vue js&quot;"/>
+                <span class="clean" @click="keyword = ''">&#x2715;</span>
+            </div>
+            <div class="size" v-if="expand">
+                <label for="size">Ukuran</label>
+                <input type="number" id="size" min="5" max="500" v-model.number="size"/>
+            </div>
+            <div class="expand" @click="expand = !expand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 284.929 284.929" width="14" height="14" fill="currentColor" :style="{ transform: expand ? 'rotate(180deg)' : 'none' }">
+                    <path d="M282.082,76.511l-14.274-14.273c-1.902-1.906-4.093-2.856-6.57-2.856c-2.471,0-4.661,0.95-6.563,2.856L142.466,174.441L30.262,62.241c-1.903-1.906-4.093-2.856-6.567-2.856c-2.475,0-4.665,0.95-6.567,2.856L2.856,76.515C0.95,78.417,0,80.607,0,83.082c0,2.473,0.953,4.663,2.856,6.565l133.043,133.046c1.902,1.903,4.093,2.854,6.567,2.854s4.661-0.951,6.562-2.854L282.082,89.647c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.511z"/>
+                </svg>
+            </div>
         </div>
         <div class="info" v-text="info"></div>
         <ul class="daftar">
@@ -45,7 +56,7 @@
                 <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${result.start}s`" target="_blank" v-text="formatTime(result.start)"></a>
             </li>
         </ul>
-        <button class="loadMore" type="button" v-show="more" @click="load()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
+        <button class="load-more" type="button" v-show="more" @click="load()" v-text="`Muat Lainnya${info === '...' ? ' ...' : ''}`"></button>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="./js/main.js"></script>
