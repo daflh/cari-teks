@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="info" v-text="info"></div>
-        <ul class="daftar">
+        <ul class="list">
             <li v-for="item in result.data">
                 <span v-html="item.text"></span>
                 <a :href="`https://www.youtube.com/watch?v=${videoId}&t=${item.start}s`" target="_blank" v-text="formatTime(item.start)"></a>

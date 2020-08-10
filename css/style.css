@@ -52,17 +52,17 @@ main {text-align: center;}
 .input-group .expand {display: inline-block; margin-bottom: 1.75rem!important; cursor: pointer; padding: .3rem; color: #4a5568;}
 .input-group .clean {margin-left: .75rem; font-weight: 600; color: #4a5568; cursor: pointer;}
 .info {font-size: 18px; color: #2d3748;}
-ul.daftar {padding: 0; list-style: none; margin-top: 2rem;}
-ul.daftar li {background-color: #fff; display: flex; color: #1a1f27; margin: 1.25rem 0; justify-content: space-between; padding: 1.25rem 1.8rem; border-radius: .25rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);}
-ul.daftar li span {float: left; text-align: left;}
-ul.daftar li mark {background-color: transparent; font-weight: bold; color: #ff4013;}
-ul.daftar li a {float: right; color: #2b6cb0; font-weight: 500; margin-left: 1.5rem; flex-shrink: 0;}
-ul.daftar li a:after {margin-left: 8px; content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);}
+ul.list {padding: 0; list-style: none; margin-top: 2rem;}
+ul.list li {background-color: #fff; display: flex; color: #1a1f27; margin: 1.25rem 0; justify-content: space-between; padding: 1.25rem 1.8rem; border-radius: .25rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);}
+ul.list li span {float: left; text-align: left;}
+ul.list li mark {background-color: transparent; font-weight: bold; color: #ff4013;}
+ul.list li a {float: right; color: #2b6cb0; font-weight: 500; margin-left: 1.5rem; flex-shrink: 0;}
+ul.list li a:after {margin-left: 8px; content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);}
 button.load-more {padding: .75rem 1rem; margin-top: .75rem; color: #fff; cursor: pointer; font-weight: 600; background: rgb(217,61,0); background: linear-gradient(25deg, rgba(217,61,0,1) 25%, rgba(217,87,0,1) 100%);border: 0; border-radius: .25rem;}
 button.load-more:hover {background: #d95700;}
 
 @media only screen and (min-width: 1024px) {
-    ul.daftar {margin-left: 4rem; margin-right: 4rem;}
+    ul.list {margin-left: 4rem; margin-right: 4rem;}
 }
 
 @media only screen and (max-width: 768px) {
@@ -71,8 +71,8 @@ button.load-more:hover {background: #d95700;}
     header svg {width: 4rem; height: 4rem; margin-right: 1.25rem;}
     header h1 span.madeby {display: none;}
     .clean {display: none;}
-    ul.daftar li {flex-direction: column;}
-    ul.daftar li a {margin-left: 0; margin-top: .5rem; text-align: left;}
+    ul.list li {flex-direction: column;}
+    ul.list li a {margin-left: 0; margin-top: .5rem; text-align: left;}
 }
 
 @media only screen and (max-width: 450px) {
