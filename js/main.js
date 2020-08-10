@@ -24,7 +24,7 @@ new Vue({
             } else {
                 this.info = "Masukkan kata kunci yang ingin dicari";
             }
-        }, 400)
+        }, 500)
     },
     computed: {
         inputChange: function() {
