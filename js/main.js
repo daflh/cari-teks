@@ -6,13 +6,13 @@ new Vue({
         size: 10,
         info: "Masukkan kata kunci yang ingin dicari",
         results: [],
-        page: 1,
+        loadPage: 1,
         more: false
     },
     watch: {
         inputChange: debounce(async function() {
             this.results = [];
-            this.page = 1;
+            this.loadPage = 1;
             this.more = false;
             if (!this.videoId) return this.info = "Format URL salah";
             if (this.keyword) {
@@ -43,14 +43,14 @@ new Vue({
             this.info = "...";
             const videoUrl = encodeURIComponent("https://www.youtube.com/watch?v=" + this.videoId);
             const respond = await fetch(
-                `https://cari-teks-video-api.vercel.app/api/search?q=${this.keyword}&url=${videoUrl}&page=${this.page}&size=${this.size}`
+                `https://cari-teks-video-api.vercel.app/api/search?q=${this.keyword}&url=${videoUrl}&page=${this.loadPage}&size=${this.size}`
             ).then((res) => (res.ok ? res.json() : []));
 
             const total = respond.total;
             if (total > 0) {
-                this.info = `Menampilkan ${Math.min(this.page * this.size, total)} dari ${total} hasil ditemukan`;
+                this.info = `Menampilkan ${Math.min(this.loadPage * this.size, total)} dari ${total} hasil ditemukan`;
                 this.results = this.results.concat(respond.data);
-                this.page++;
+                this.loadPage++;
                 this.more = !!respond.next;
             } else {
                 this.info = `Tidak menemukan hasil dengan kata kunci "${this.keyword}"`;
