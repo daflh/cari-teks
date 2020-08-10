@@ -3,7 +3,7 @@ new Vue({
     data: {
         url: "youtube.com/watch?v=OrxmtDw4pVI",
         keyword: "",
-        size: 10,
+        size: localStorage.getItem("size") !== null ? Number(localStorage.getItem("size")) : 10,
         expand: false,
         info: "Masukkan kata kunci yang ingin dicari",
         result: {
@@ -19,11 +19,11 @@ new Vue({
                 page: null,
                 isLast: null
             };
-            if (!this.videoId) {
-                this.info = "Format URL salah";
-            } else if (typeof this.size !== "number" || this.size < 5 || this.size > 500) {
-                this.info = "Masukkan angka dengan range 5 - 500"
-            } else if (this.keyword) {
+            if (this.url === "") return this.info = "Masukkan URL video, atau gunakan "
+            if (!this.videoId) return this.info = "Format URL salah";
+            if (this.size < 5 || this.size > 500) return this.info = "Masukkan angka dengan range 5 - 500";
+            localStorage.setItem("size", this.size);
+            if (this.keyword) {
                 if (this.keyword.length >= 3) {
                     await this.load();
                 } else {
