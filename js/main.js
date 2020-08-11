@@ -12,6 +12,18 @@ new Vue({
             isLast: null
         }
     },
+    computed: {
+        inputChange: function() {
+            return [this.url, this.keyword, this.size];
+        },
+        videoId: function() {
+            if (this.url === "") return false;
+            let url = this.url.search(/^https?:\/\//) !== -1 ? this.url : `http://${this.url}`;
+            let params = new URL(url).searchParams;
+            if (!params.has("v")) return false;
+            return params.get("v");
+        }
+    },
     watch: {
         inputChange: debounce(async function() {
             this.result = {
@@ -34,18 +46,6 @@ new Vue({
             }
         }, 500)
     },
-    computed: {
-        inputChange: function() {
-            return [this.url, this.keyword, this.size];
-        },
-        videoId: function() {
-            if (this.url === "") return false;
-            let url = this.url.search(/^https?:\/\//) !== -1 ? this.url : `http://${this.url}`;
-            let params = new URL(url).searchParams;
-            if (!params.has("v")) return false;
-            return params.get("v");
-        }
-    },
     methods: {
         async load() {
             this.info = "...";
@@ -57,8 +57,9 @@ new Vue({
 
             const total = respond.total;
             if (total > 0) {
-                this.info = `Menampilkan ${Math.min(pageToLoad * this.size, total)} dari ${total} hasil ditemukan`;
-                this.result.data = this.result.data.concat(respond.data);
+                const combinedData = this.result.data.concat(respond.data);
+                this.info = `Menampilkan ${combinedData.length} dari ${total} hasil ditemukan`;
+                this.result.data = combinedData;
                 this.result.page = respond.page;
                 this.result.isLast = !respond.next;
             } else {
