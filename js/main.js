@@ -1,11 +1,11 @@
 new Vue({
     el: "#app",
     data: {
-        url: "youtube.com/watch?v=OrxmtDw4pVI",
+        url: "",
         keyword: "",
         size: localStorage.getItem("size") !== null ? Number(localStorage.getItem("size")) : 10,
         expand: false,
-        info: "Masukkan kata kunci yang ingin dicari",
+        info: "Masukkan URL video",
         result: {
             data: [],
             page: null,
@@ -19,7 +19,7 @@ new Vue({
                 page: null,
                 isLast: null
             };
-            if (this.url === "") return this.info = "Masukkan URL video, atau gunakan "
+            if (this.url === "") return this.info = "Masukkan URL video";
             if (!this.videoId) return this.info = "Format URL salah";
             if (this.size < 5 || this.size > 500) return this.info = "Masukkan angka dengan range 5 - 500";
             localStorage.setItem("size", this.size);
@@ -27,7 +27,7 @@ new Vue({
                 if (this.keyword.length >= 3) {
                     await this.load();
                 } else {
-                    this.info = "Kata kunci minimal 3 karakter"
+                    this.info = "Kata kunci minimal 3 karakter";
                 }
             } else {
                 this.info = "Masukkan kata kunci yang ingin dicari";
@@ -74,7 +74,7 @@ new Vue({
             return result.startsWith("0") ? result.substr(1) : result;
         }
     }
-})
+});
 
 function debounce(fn, wait) {
     let timer;
