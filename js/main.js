@@ -3,9 +3,9 @@ new Vue({
     data: {
         url: "",
         keyword: "",
-        size: localStorage.getItem("size") !== null ? Number(localStorage.getItem("size")) : 10,
+        size: 10,
         expand: false,
-        info: "Masukkan URL video",
+        info: "",
         result: {
             data: [],
             page: null,
@@ -31,10 +31,14 @@ new Vue({
                 page: null,
                 isLast: null
             };
+            let validSize = false;
+            if (this.size >= 5 && this.size <= 500) {
+                validSize = true;
+                localStorage.setItem("size", this.size);
+            }
             if (this.url === "") return this.info = "Masukkan URL video";
             if (!this.videoId) return this.info = "Format URL salah";
-            if (this.size < 5 || this.size > 500) return this.info = "Masukkan angka dengan range 5 - 500";
-            localStorage.setItem("size", this.size);
+            if (!validSize) return this.info = "Masukkan angka dengan range 5 - 500";
             if (this.keyword) {
                 if (this.keyword.length >= 3) {
                     await this.load();
@@ -44,7 +48,25 @@ new Vue({
             } else {
                 this.info = "Masukkan kata kunci yang ingin dicari";
             }
-        }, 500)
+        }, 500),
+        url: debounce(function(url) {
+            localStorage.setItem("url", url);
+        }, 300),
+        expand: function(expand) {
+            localStorage.setItem("expand", expand);
+        }
+    },
+    created: function() {
+        const url = localStorage.getItem("url");
+        const size = localStorage.getItem("size");
+        const expand = localStorage.getItem("expand");
+        if (url !== null) {
+            this.url = url;
+        } else {
+            this.info = "Masukkan URL video";
+        }
+        if (size !== null) this.size = Number(size);
+        if (expand !== null) this.expand = (expand === "true");
     },
     methods: {
         async load() {
