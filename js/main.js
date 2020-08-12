@@ -99,6 +99,14 @@ new Vue({
     }
 });
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then((data) => {
+        console.log("Registrasi service worker berhasil!");
+    }).catch((err) => {
+        console.log('Yahh, registrasi service worker gagal', err);
+    });
+}
+
 function debounce(fn, wait) {
     let timer;
     let resolveList = [];
