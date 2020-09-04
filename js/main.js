@@ -97,6 +97,11 @@ new Vue({
             const respond = await fetch(requestUrl).then((res) => (res.ok ? res.json() : []));
 
             if (respond.data.length > 0) {
+                // 'start' dibulatkan kebawah
+                respond.data = respond.data.map((item) => {
+                    item.start = Math.floor(item.start);
+                    return item;
+                });
                 // gabungkan data sebelumnya dengan data yang baru di fetch
                 const combinedData = this.result.data.concat(respond.data);
                 this.info = `Menampilkan ${combinedData.length} dari ${respond.search.found} hasil ditemukan`;
@@ -126,9 +131,6 @@ new Vue({
                 }
             }
             return qs.join("&");
-        },
-        floor(num) {
-            return Math.floor(num)
         }
     }
 });
