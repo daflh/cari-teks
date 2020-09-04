@@ -36,7 +36,7 @@ template{display:none}
 
 body {font-family: 'Inter', sans-serif; background-color: #e2e8f0; margin: 2.65rem 3rem 5rem;}
 a {text-decoration: none;}
-input {border: 0; border-radius: .25rem; padding: .75rem 1.25rem; width: 50%; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);}
+input, select {border: 0; border-radius: .25rem; padding: .75rem 1.25rem; background-color: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);}
 label {margin-right: 1rem; font-weight: 600; color: #4a5568;}
 header {display: flex; margin-bottom: 2rem; justify-content: center;}
 header svg {width: 5rem; height: 5rem; align-self: center; margin-right: 2rem;}
@@ -47,8 +47,6 @@ header h1 span.madeby {position: absolute; font-size: 1rem; font-weight: 500; co
 header h1 span.madeby a {color: inherit; font-weight: 600;}
 main {text-align: center;}
 .input-group > * {margin-bottom: 1.25rem;}
-.input-group .size label {cursor: help;}
-.input-group .size input {width: auto;}
 .input-group .expand {display: inline-block; margin-bottom: 1.75rem!important; cursor: pointer; padding: .3rem; color: #4a5568;}
 .input-group .clean {margin-left: .75rem; font-weight: 600; color: #4a5568; cursor: pointer;}
 .info {font-size: 18px; color: #2d3748;}
@@ -60,6 +58,9 @@ ul.list li a {float: right; color: #2b6cb0; font-weight: 500; margin-left: 1.5re
 ul.list li a:after {margin-left: 8px; content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);}
 button.load-more {padding: .75rem 1rem; margin-top: .75rem; color: #fff; cursor: pointer; font-weight: 600; background: rgb(217,61,0); background: linear-gradient(25deg, rgba(217,61,0,1) 25%, rgba(217,87,0,1) 100%);border: 0; border-radius: .25rem;}
 button.load-more:hover {background: #d95700;}
+.help {cursor: help;}
+.width-half {width: 50%;}
+.appearance-none {-webkit-appearance: none; -moz-appearance: none; appearance: none}
 
 @media only screen and (min-width: 1024px) {
     ul.list {margin-left: 4rem; margin-right: 4rem;}

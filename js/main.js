@@ -3,6 +3,7 @@ new Vue({
     data: {
         url: "",
         keyword: "",
+        lang: "en",
         size: 10,
         expand: false,
         info: "",
@@ -15,7 +16,7 @@ new Vue({
     computed: {
         // helper data, jalankan watcher ketika salah satu dari data-nya berubah
         inputChange: function() {
-            return [this.url, this.keyword, this.size];
+            return [this.url, this.keyword, this.lang, this.size];
         },
         // mengambil Youtube video ID dari url video yang diberikan
         videoId: function() {
@@ -55,18 +56,15 @@ new Vue({
                 this.info = "Masukkan kata kunci yang ingin dicari";
             }
         }, 500),
-        // selalu simpan ke localstorage setiap url dan expand berubah
-        // walaupun blm dicek valid atau tidak
-        url: debounce(function(url) {
-            localStorage.setItem("url", url);
-        }, 300),
-        expand: function(expand) {
-            localStorage.setItem("expand", expand);
-        }
+        // selalu simpan ke localstorage walaupun blm dicek valid atau tidak
+        url: debounce((url) => localStorage.setItem("url", url), 300),
+        lang: (lang) => localStorage.setItem("lang", lang),
+        expand: (expand) => localStorage.setItem("expand", expand)
     },
     created: function() {
         // ambil data yang disimpan localstorage setiap instance Vue dibuat
         const url = localStorage.getItem("url");
+        const lang = localStorage.getItem("lang");
         const size = localStorage.getItem("size");
         const expand = localStorage.getItem("expand");
         if (url !== null) {
@@ -74,6 +72,7 @@ new Vue({
         } else {
             this.info = "Masukkan URL video";
         }
+        if (lang !== null) this.lang = lang;
         if (size !== null) this.size = Number(size);
         if (expand !== null) this.expand = (expand === "true");
     },
@@ -86,7 +85,7 @@ new Vue({
 
             const queries = {
                 v: this.videoId,
-                lang: "en",
+                lang: this.lang,
                 key: this.keyword,
                 marker: "<mark>_$_</mark>",
                 size: this.size,

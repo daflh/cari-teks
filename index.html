@@ -36,7 +36,7 @@
         <div class="input-group">
             <div class="url">
                 <label for="url">URL Video</label>
-                <input type="text" id="url" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
+                <input type="text" id="url" class="width-half" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
                 <span 
                     class="clean" 
                     @click="url = url === '' ? 'youtube.com/watch?v=OrxmtDw4pVI' : ''" 
@@ -45,11 +45,18 @@
             </div>
             <div class="keyword">
                 <label for="keyword">Kata Kunci</label>
-                <input type="text" id="keyword" v-model="keyword" placeholder="Coba &quot;vue&quot;"/>
+                <input type="text" id="keyword" class="width-half" v-model="keyword" placeholder="Coba &quot;vue&quot;"/>
                 <span class="clean" @click="keyword = ''" v-text="'&#x2715;'"></span>
             </div>
+            <div class="lang" v-show="expand">
+                <label for="lang">Bahasa</label>
+                <select id="lang" class="appearance-none" v-model="lang">
+                    <option value="en">Inggris</option>
+                    <option value="id">Indonesia</option>
+                </select>
+            </div>
             <div class="size" v-show="expand">
-                <label for="size" title="Berapa banyak item yang harus ditampilkan untuk setiap pencarian">Ukuran</label>
+                <label for="size" class="help" title="Berapa banyak item yang harus ditampilkan untuk setiap pencarian">Ukuran</label>
                 <input type="number" id="size" min="5" max="500" v-model.number="size"/>
             </div>
             <div class="expand" @click="expand = !expand">
