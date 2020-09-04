@@ -1,4 +1,4 @@
-const cacheName = 'cari-teks-v1';
+const cacheName = 'cari-teks-v2';
 const precacheAssets = [
     '/index.html',
     '/manifest.json',

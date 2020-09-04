@@ -91,7 +91,7 @@ new Vue({
                 size: this.size,
                 page: this.result.page + 1
             };
-            const requestUrl = "http://yt-transcripts.vercel.app/api?" + this.serialize(queries);
+            const requestUrl = "https://yt-transcripts.vercel.app/api?" + this.serialize(queries);
             // ambil data json melalui fetch ke 'requestUrl'
             const respond = await fetch(requestUrl).then((res) => (res.ok ? res.json() : []));
 
