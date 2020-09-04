@@ -71,19 +71,24 @@ new Vue({
     methods: {
         async load() {
             this.info = "...";
-            const pageToLoad = this.result.page + 1;
-            const videoUrl = encodeURIComponent("https://www.youtube.com/watch?v=" + this.videoId);
-            const respond = await fetch(
-                `https://cari-teks-video-api.vercel.app/api/search?q=${this.keyword}&url=${videoUrl}&page=${pageToLoad}&size=${this.size}`
-            ).then((res) => (res.ok ? res.json() : []));
 
-            const total = respond.total;
-            if (total > 0) {
+            const queries = {
+                v: this.videoId,
+                lang: "en",
+                key: this.keyword,
+                marker: "<mark>_$_</mark>",
+                size: this.size,
+                page: this.result.page + 1
+            };
+            const requestUrl = "http://yt-transcripts.vercel.app/api?" + this.serialize(queries);
+            const respond = await fetch(requestUrl).then((res) => (res.ok ? res.json() : []));
+
+            if (respond.data.length > 0) {
                 const combinedData = this.result.data.concat(respond.data);
-                this.info = `Menampilkan ${combinedData.length} dari ${total} hasil ditemukan`;
+                this.info = `Menampilkan ${combinedData.length} dari ${respond.search.found} hasil ditemukan`;
                 this.result.data = combinedData;
                 this.result.page = respond.page;
-                this.result.isLast = !respond.next;
+                this.result.isLast = (respond.page === respond.total_pages);
             } else {
                 this.info = `Tidak menemukan hasil dengan kata kunci "${this.keyword}"`;
             }
@@ -95,6 +100,18 @@ new Vue({
                 result = result.substr(3);
             }
             return result.startsWith("0") ? result.substr(1) : result;
+        },
+        serialize(obj) {
+            let qs = [];
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    qs.push(encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]));
+                }
+            }
+            return qs.join("&");
+        },
+        floor(num) {
+            return Math.floor(num)
         }
     }
 });
