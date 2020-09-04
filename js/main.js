@@ -40,10 +40,10 @@ new Vue({
             if (!this.videoId) return this.info = "Format URL salah";
             if (!validSize) return this.info = "Masukkan angka dengan range 5 - 500";
             if (this.keyword) {
-                if (this.keyword.length >= 3) {
+                if (this.keyword.length >= 2) {
                     await this.load();
                 } else {
-                    this.info = "Kata kunci minimal 3 karakter";
+                    this.info = "Kata kunci minimal 2 karakter";
                 }
             } else {
                 this.info = "Masukkan kata kunci yang ingin dicari";
