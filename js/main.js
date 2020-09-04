@@ -79,6 +79,8 @@ new Vue({
     },
     methods: {
         async load() {
+            // jangan dijalankan kalau masih load() sebelumnya blm selesai
+            if (this.info === "...") return;
             // informasi loading sementara melakukan fetch
             this.info = "...";
 
