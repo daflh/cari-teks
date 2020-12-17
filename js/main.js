@@ -99,23 +99,44 @@ new Vue({
             // ambil data json melalui fetch ke 'requestUrl'
             const respond = await fetch(requestUrl).then((res) => (res.ok ? res.json() : []));
 
-            if (respond.data.length > 0) {
-                // 'start' dibulatkan kebawah
-                respond.data = respond.data.map((item) => {
-                    item.start = Math.floor(item.start);
-                    return item;
-                });
+            if (respond.is_error) {
+                switch (respond.error) {
+                  case "VideoInvalid": // video dengan id ini tidak ditemukan
+                  case "VideoUnavailable": // vide sudah dihapus
+                    this.info = `Tidak menemukan video dengan ID "${this.videoId}"`;
+                    break;
+                  case "NoTranscriptFound": // tidak ada subtitle dalam bahasa ini
+                    const lang = this.lang === "id" ? "Indonesia" : "Inggris";
 
-                // gabungkan data sebelumnya dengan data yang baru di fetch
-                const combinedData = this.result.data.concat(respond.data);
-
-                this.info = `Menampilkan ${combinedData.length} dari ${respond.search.found} hasil ditemukan`;
-                this.result.data = combinedData;
-                this.result.page = respond.page;
-                // kalau page saat ini sama dengan total pages, berarti sudah page terakhir
-                this.result.isLast = (respond.page === respond.total_pages);
+                    this.info = `Tidak terdapat subtitle Bahasa ${lang} pada video ini`;
+                    break;
+                  case "NoTranscriptAvailable": // tidak ada subtitle di video ini
+                  case "TranscriptsDisabled": // subtitle dimatikan
+                    this.info = "Tidak terdapat subtitle pada video ini atau subtitle dinonaktifkan";
+                    break;
+                  default:
+                    this.info = "Tampaknya ada kesalahan";
+                    break;
+                }
             } else {
-                this.info = `Tidak menemukan hasil dengan kata kunci "${this.keyword}"`;
+                if (respond.data.length === 0) {
+                    this.info = `Tidak menemukan hasil dengan kata kunci "${this.keyword}"`;
+                } else {
+                    // 'start' dibulatkan kebawah
+                    respond.data = respond.data.map((item) => {
+                        item.start = Math.floor(item.start);
+                        return item;
+                    });
+    
+                    // gabungkan data sebelumnya dengan data yang baru di fetch
+                    const combinedData = this.result.data.concat(respond.data);
+    
+                    this.info = `Menampilkan ${combinedData.length} dari ${respond.search.found} hasil ditemukan`;
+                    this.result.data = combinedData;
+                    this.result.page = respond.page;
+                    // kalau page saat ini sama dengan total pages, berarti sudah page terakhir
+                    this.result.isLast = (respond.page === respond.total_pages);
+                }
             }
         },
         // mengubah angka (detik) yang di input ke format mm:ss / hh:mm:ss
