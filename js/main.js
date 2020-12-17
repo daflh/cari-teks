@@ -40,18 +40,9 @@ new Vue({
                 isLast: null
             };
 
-            let validSize = false;
-
-            if (this.size >= 5 && this.size <= 500) {
-                validSize = true;
-
-                // kalau size yang di input valid, simpan ke localstorage
-                localStorage.setItem("size", this.size);
-            }
-
             if (this.url === "") return this.info = "Masukkan URL video";
             if (!this.videoId) return this.info = "Format URL salah";
-            if (!validSize) return this.info = "Masukkan angka dengan range 5 - 500";
+            if (this.size < 5 || this.size > 500) return this.info = "Masukkan angka dengan range 5 - 500";
             if (this.keyword) {
                 if (this.keyword.length >= 2) {
                     // load ulang result kalau semua sudah valid
@@ -62,17 +53,7 @@ new Vue({
             } else {
                 this.info = "Masukkan kata kunci yang ingin dicari";
             }
-        }, 500),
-        // selalu simpan ke localstorage walaupun blm dicek valid atau tidak
-        url: debounce((url) => {
-            localStorage.setItem("url", url);
-        }, 300),
-        lang: (lang) => {
-            localStorage.setItem("lang", lang);
-        },
-        expand: (expand) => {
-            localStorage.setItem("expand", expand);
-        }
+        }, 500)
     },
     created: function() {
         // ambil data yang disimpan localstorage setiap instance Vue dibuat
@@ -89,6 +70,14 @@ new Vue({
         if (lang !== null) this.lang = lang;
         if (size !== null) this.size = Number(size);
         if (expand !== null) this.expand = (expand === "true");
+
+        // sebelum window unload (refresh/leave) simpan data localstorage
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("url", this.url);
+            localStorage.setItem("lang", this.lang);
+            localStorage.setItem("size", this.size);
+            localStorage.setItem("expand", this.expand);
+        });
     },
     methods: {
         async load() {
