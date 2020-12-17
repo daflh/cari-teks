@@ -15,6 +15,7 @@ function putCache(request, response) {
     if (response.type === "error" || response.type === "opaque") {
         return Promise.resolve();
     }
+    
     return caches.open(cacheName)
         .then((cache) => cache.put(request, response.clone()));
 }

@@ -21,10 +21,13 @@ new Vue({
         // mengambil Youtube video ID dari url video yang diberikan
         videoId: function() {
             if (this.url === "") return false;
+
             // tambahkan protokol pada url kalau blm ada
-            let url = this.url.search(/^https?:\/\//) !== -1 ? this.url : `http://${this.url}`;
-            let params = new URL(url).searchParams;
+            const url = this.url.search(/^https?:\/\//) !== -1 ? this.url : `http://${this.url}`;
+            const params = new URL(url).searchParams;
+
             if (!params.has("v")) return false;
+
             return params.get("v");
         }
     },
@@ -36,12 +39,16 @@ new Vue({
                 page: null,
                 isLast: null
             };
+
             let validSize = false;
+
             if (this.size >= 5 && this.size <= 500) {
                 validSize = true;
+
                 // kalau size yang di input valid, simpan ke localstorage
                 localStorage.setItem("size", this.size);
             }
+
             if (this.url === "") return this.info = "Masukkan URL video";
             if (!this.videoId) return this.info = "Format URL salah";
             if (!validSize) return this.info = "Masukkan angka dengan range 5 - 500";
@@ -57,9 +64,15 @@ new Vue({
             }
         }, 500),
         // selalu simpan ke localstorage walaupun blm dicek valid atau tidak
-        url: debounce((url) => localStorage.setItem("url", url), 300),
-        lang: (lang) => localStorage.setItem("lang", lang),
-        expand: (expand) => localStorage.setItem("expand", expand)
+        url: debounce((url) => {
+            localStorage.setItem("url", url);
+        }, 300),
+        lang: (lang) => {
+            localStorage.setItem("lang", lang);
+        },
+        expand: (expand) => {
+            localStorage.setItem("expand", expand);
+        }
     },
     created: function() {
         // ambil data yang disimpan localstorage setiap instance Vue dibuat
@@ -67,6 +80,7 @@ new Vue({
         const lang = localStorage.getItem("lang");
         const size = localStorage.getItem("size");
         const expand = localStorage.getItem("expand");
+
         if (url !== null) {
             this.url = url;
         } else {
@@ -80,6 +94,7 @@ new Vue({
         async load() {
             // jangan dijalankan kalau masih load() sebelumnya blm selesai
             if (this.info === "...") return;
+
             // informasi loading sementara melakukan fetch
             this.info = "...";
 
@@ -101,8 +116,10 @@ new Vue({
                     item.start = Math.floor(item.start);
                     return item;
                 });
+
                 // gabungkan data sebelumnya dengan data yang baru di fetch
                 const combinedData = this.result.data.concat(respond.data);
+
                 this.info = `Menampilkan ${combinedData.length} dari ${respond.search.found} hasil ditemukan`;
                 this.result.data = combinedData;
                 this.result.page = respond.page;
@@ -116,19 +133,23 @@ new Vue({
         formatTime(seconds) {
             const milliseconds = seconds * 1000;
             let result = new Date(milliseconds).toISOString().substr(11, 8);
+
             if (result.startsWith("00")) {
                 result = result.substr(3);
             }
+
             return result.startsWith("0") ? result.substr(1) : result;
         },
         // ubah object yang di input ke query string
         serialize(obj) {
             let qs = [];
+
             for (let key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     qs.push(encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]));
                 }
             }
+
             return qs.join("&");
         }
     }
@@ -148,17 +169,23 @@ if ('serviceWorker' in navigator && !["localhost", "127.0.0.1"].includes(locatio
 function debounce(fn, wait) {
     let timer;
     let resolveList = [];
+
     return function(...arguments_) {
         return new Promise(resolve => {
             clearTimeout(timer);
+
             timer = setTimeout(() => {
                 timer = null;
+                
                 const result = fn.apply(this, arguments_);
+
                 for (resolve of resolveList) {
                     resolve(result);
                 }
+
                 resolveList = [];
             }, wait);
+
             resolveList.push(resolve);
         });
     }
