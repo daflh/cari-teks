@@ -43,8 +43,6 @@ header svg {width: 5rem; height: 5rem; align-self: center; margin-right: 2rem;}
 header h1 {font-size: 3.5rem; position: relative; margin-top: 2.25rem;}
 header h1 span:nth-child(1) {color: #d93d00;}
 header h1 span:nth-child(2) {color: #d95700;}
-header h1 span.madeby {position: absolute; font-size: 1rem; font-weight: 500; color: #333944; bottom: -20px; right: 0;}
-header h1 span.madeby a {color: inherit; font-weight: 600;}
 main {text-align: center;}
 [v-cloak] {display: none;}
 .input-group > * {margin-bottom: 1.25rem;}
@@ -71,7 +69,6 @@ button.load-more:hover {background: #d95700;}
     input {width: 75%;}
     label {display: block; margin-bottom: 1rem; margin-right: 0;}
     header svg {width: 4rem; height: 4rem; margin-right: 1.25rem;}
-    header h1 span.madeby {display: none;}
     .clean {display: none;}
     ul.list li {flex-direction: column;}
     ul.list li a {margin-left: 0; margin-top: .5rem; text-align: left;}
