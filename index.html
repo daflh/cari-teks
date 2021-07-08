@@ -37,16 +37,12 @@
             <div class="url">
                 <label for="url">URL Video</label>
                 <input type="text" id="url" class="width-half" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
-                <span 
-                    class="clean" 
-                    @click="url = ''" 
-                    v-text="'&#x2715;'"
-                ></span>
+                <span class="clean" @click="url = ''">&#x2715;</span>
             </div>
             <div class="keyword">
                 <label for="keyword">Kata Kunci</label>
                 <input type="text" id="keyword" class="width-half" v-model="keyword"/>
-                <span class="clean" @click="keyword = ''" v-text="'&#x2715;'"></span>
+                <span class="clean" @click="keyword = ''">&#x2715;</span>
             </div>
             <div class="lang" v-show="expand">
                 <label for="lang">Bahasa</label>
