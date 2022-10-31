@@ -47,6 +47,7 @@ header h1 span:nth-child(2) {color: #d95700;}
 main {text-align: center;}
 [v-cloak] {display: none;}
 .input-group > * {margin-bottom: 1.25rem;}
+.input-group .lang input {margin-left: .5rem; width: 10rem;}
 .input-group .expand {display: inline-block; margin-bottom: 1.75rem!important; cursor: pointer; padding: .3rem; color: #4a5568;}
 .input-group .clean {margin-left: .75rem; font-weight: 600; color: #4a5568; cursor: pointer;}
 .info {font-size: 18px; color: #2d3748;}

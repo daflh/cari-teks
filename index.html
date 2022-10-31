@@ -46,10 +46,12 @@
             </div>
             <div class="lang" v-show="expand">
                 <label for="lang">Bahasa</label>
-                <select id="lang" class="appearance-none" v-model="lang">
+                <select id="lang" class="appearance-none" v-model="selectedLang">
                     <option value="en">Inggris</option>
                     <option value="id">Indonesia</option>
+                    <option value="other">Lainnya</option>
                 </select>
+                <input v-show="selectedLang === 'other'" type="text" id="custom-lang" v-model="inputLang" placeholder="Contoh: en, es, id"/>
             </div>
             <div class="size" v-show="expand">
                 <label for="size" class="help" title="Berapa banyak item yang harus ditampilkan untuk setiap pencarian">Ukuran</label>
