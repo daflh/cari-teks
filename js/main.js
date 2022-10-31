@@ -3,7 +3,8 @@ new Vue({
     data: {
         url: "",
         keyword: "",
-        lang: "en",
+        selectedLang: "en",
+        inputLang: "",
         size: 10,
         expand: false,
         info: "",
@@ -14,6 +15,9 @@ new Vue({
         }
     },
     computed: {
+        lang: function() {
+            return this.selectedLang !== "other" ? this.selectedLang : this.inputLang;
+        },
         // helper data, jalankan watcher ketika salah satu dari data-nya berubah
         inputChange: function() {
             return [this.url, this.keyword, this.lang, this.size];
@@ -43,6 +47,7 @@ new Vue({
             if (this.url === "") return this.info = "Masukkan URL video";
             if (!this.videoId) return this.info = "Format URL salah";
             if (this.size < 5 || this.size > 500) return this.info = "Masukkan angka dengan range 5 - 500";
+            if (this.selectedLang === "other" && this.inputLang === "") return this.info = "Kode bahasa tidak valid";
             if (this.keyword) {
                 if (this.keyword.length >= 2) {
                     // load ulang result kalau semua sudah valid
@@ -67,7 +72,14 @@ new Vue({
         } else {
             this.info = "Masukkan URL video";
         }
-        if (lang !== null) this.lang = lang;
+        if (lang !== null) {
+            if (lang === "en" || lang === "id") {
+                this.selectedLang = lang;
+            } else {
+                this.selectedLang = "other";
+                this.inputLang = lang;
+            }
+        };
         if (size !== null) this.size = Number(size);
         if (expand !== null) this.expand = (expand === "true");
 
@@ -106,9 +118,12 @@ new Vue({
                     this.info = `Tidak menemukan video dengan ID "${this.videoId}"`;
                     break;
                   case "NoTranscriptFound": // tidak ada subtitle dalam bahasa ini
-                    const lang = this.lang === "id" ? "Indonesia" : "Inggris";
+                    let substr;
+                    if (this.selectedLang === "en") substr = "Bahasa Inggris"
+                    else if (this.selectedLang === "id") substr = "Bahasa Indonesia";
+                    else substr = `dengan kode bahasa "${this.lang}"`;
 
-                    this.info = `Tidak terdapat subtitle Bahasa ${lang} pada video ini`;
+                    this.info = `Tidak terdapat subtitle ${substr} pada video ini`;
                     break;
                   case "NoTranscriptAvailable": // tidak ada subtitle di video ini
                   case "TranscriptsDisabled": // subtitle dimatikan
