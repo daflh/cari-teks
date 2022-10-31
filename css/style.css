@@ -37,6 +37,7 @@ template{display:none}
 body {font-family: 'Inter', sans-serif; background-color: #e2e8f0; margin: 2.65rem 3rem 5rem;}
 a {text-decoration: none;}
 input, select {border: 0; border-radius: .25rem; padding: .75rem 1.25rem; background-color: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);}
+input::placeholder {opacity: .65;}
 label {margin-right: 1rem; font-weight: 600; color: #4a5568;}
 header {display: flex; margin-bottom: 2rem; justify-content: center;}
 header svg {width: 5rem; height: 5rem; align-self: center; margin-right: 2rem;}

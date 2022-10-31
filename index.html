@@ -36,12 +36,12 @@
         <div class="input-group">
             <div class="url">
                 <label for="url">URL Video</label>
-                <input type="text" id="url" class="width-half" v-model="url" placeholder="Pastikan terdapat parameter &quot;v&quot; pada url"/>
+                <input type="text" id="url" class="width-half" v-model="url" placeholder="Contoh: youtube.com/watch?v=jNQXAC9IVRw"/>
                 <span class="clean" @click="url = ''">&#x2715;</span>
             </div>
             <div class="keyword">
                 <label for="keyword">Kata Kunci</label>
-                <input type="text" id="keyword" class="width-half" v-model="keyword"/>
+                <input type="text" id="keyword" class="width-half" v-model="keyword" placeholder="Masukkan kata atau frase yang ingin dicari"/>
                 <span class="clean" @click="keyword = ''">&#x2715;</span>
             </div>
             <div class="lang" v-show="expand">
